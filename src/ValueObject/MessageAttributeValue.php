@@ -1,6 +1,6 @@
 <?php
 
-namespace AsyncAws\Sns\Input;
+namespace AsyncAws\Sns\ValueObject;
 
 use AsyncAws\Core\Exception\InvalidArgument;
 
@@ -11,9 +11,6 @@ class MessageAttributeValue
      * see Message Attribute Data Types.
      *
      * @see https://docs.aws.amazon.com/sns/latest/dg/SNSMessageAttributes.html#SNSMessageAttributes.DataTypes
-     * @required
-     *
-     * @var string|null
      */
     private $DataType;
 
@@ -21,23 +18,19 @@ class MessageAttributeValue
      * Strings are Unicode with UTF8 binary encoding. For a list of code values, see ASCII Printable Characters.
      *
      * @see https://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters
-     *
-     * @var string|null
      */
     private $StringValue;
 
     /**
      * Binary type attributes can store any binary data, for example, compressed data, encrypted data, or images.
-     *
-     * @var string|null
      */
     private $BinaryValue;
 
     /**
      * @param array{
      *   DataType: string,
-     *   StringValue?: string,
-     *   BinaryValue?: string,
+     *   StringValue?: null|string,
+     *   BinaryValue?: null|string,
      * } $input
      */
     public function __construct(array $input)
@@ -57,7 +50,7 @@ class MessageAttributeValue
         return $this->BinaryValue;
     }
 
-    public function getDataType(): ?string
+    public function getDataType(): string
     {
         return $this->DataType;
     }
@@ -65,27 +58,6 @@ class MessageAttributeValue
     public function getStringValue(): ?string
     {
         return $this->StringValue;
-    }
-
-    public function setBinaryValue(?string $value): self
-    {
-        $this->BinaryValue = $value;
-
-        return $this;
-    }
-
-    public function setDataType(?string $value): self
-    {
-        $this->DataType = $value;
-
-        return $this;
-    }
-
-    public function setStringValue(?string $value): self
-    {
-        $this->StringValue = $value;
-
-        return $this;
     }
 
     public function validate(): void
